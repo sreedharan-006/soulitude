@@ -7,6 +7,7 @@ import Journal from './components/Journal';
 import Insights from './components/Insights';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import LandingPage from './components/LandingPage';
 import './App.css';
 
 const Navigation = () => {
@@ -17,14 +18,15 @@ const Navigation = () => {
   async function handleLogout() {
     try {
       await logout();
-      navigate('/signin');
+      navigate('/');
     } catch {
       console.error("Failed to log out");
     }
   }
 
-  // Hide navigation on auth pages if user is not logged in, or just show minimal
-  if (['/signin', '/signup'].includes(location.pathname)) {
+  // Hide navigation on auth pages and landing page if not logged in
+  const hideNavRoutes = ['/signin', '/signup'];
+  if (hideNavRoutes.includes(location.pathname) || (!currentUser && location.pathname === '/')) {
     return null;
   }
 
@@ -57,6 +59,11 @@ const NavigationWrapper = () => {
 }
 
 
+const RootRoute = () => {
+  const { currentUser } = useAuth();
+  return currentUser ? <Dashboard /> : <LandingPage />;
+};
+
 function App() {
   return (
     <Router>
@@ -69,7 +76,7 @@ function App() {
 
           <Routes>
             {/* Private Routes */}
-            <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/" element={<RootRoute />} />
             <Route path="/checkin" element={<PrivateRoute><CheckIn /></PrivateRoute>} />
             <Route path="/journal" element={<PrivateRoute><Journal /></PrivateRoute>} />
             <Route path="/insights" element={<PrivateRoute><Insights /></PrivateRoute>} />
