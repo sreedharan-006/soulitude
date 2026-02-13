@@ -8,6 +8,9 @@ import Insights from './components/Insights';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import LandingPage from './components/LandingPage';
+import Chatbot from './components/Chatbot';
+import Meditation from './components/Meditation';
+import SleepTracker from './components/SleepTracker';
 import './App.css';
 
 const Navigation = () => {
@@ -36,6 +39,9 @@ const Navigation = () => {
       <Link to="/checkin" className={location.pathname === '/checkin' ? 'active' : ''}>Check-In</Link>
       <Link to="/journal" className={location.pathname === '/journal' ? 'active' : ''}>Journal</Link>
       <Link to="/insights" className={location.pathname === '/insights' ? 'active' : ''}>Insights</Link>
+      <Link to="/chat" className={location.pathname === '/chat' ? 'active' : ''}>AI Chat</Link>
+      <Link to="/meditation" className={location.pathname === '/meditation' ? 'active' : ''}>Meditate</Link>
+      <Link to="/sleep" className={location.pathname === '/sleep' ? 'active' : ''}>Sleep</Link>
 
       <div style={{ float: 'right' }}>
         {currentUser ? (
@@ -80,6 +86,9 @@ function App() {
             <Route path="/checkin" element={<PrivateRoute><CheckIn /></PrivateRoute>} />
             <Route path="/journal" element={<PrivateRoute><Journal /></PrivateRoute>} />
             <Route path="/insights" element={<PrivateRoute><Insights /></PrivateRoute>} />
+            <Route path="/chat" element={<PrivateRoute><Chatbot /></PrivateRoute>} />
+            <Route path="/meditation" element={<PrivateRoute><Meditation /></PrivateRoute>} />
+            <Route path="/sleep" element={<PrivateRoute><SleepTracker /></PrivateRoute>} />
 
             {/* Public Routes */}
             <Route path="/signup" element={<SignUp />} />
